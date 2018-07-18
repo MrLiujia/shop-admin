@@ -3,14 +3,17 @@ package shopadmin.config;
 import javax.sql.DataSource;
 
 import org.mybatis.spring.SqlSessionFactoryBean;
+import org.mybatis.spring.annotation.MapperScan;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.PropertySource;
 import org.springframework.core.env.Environment;
 import org.springframework.core.io.ClassPathResource;
 import org.springframework.jdbc.datasource.DriverManagerDataSource;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.web.servlet.config.annotation.DefaultServletHandlerConfigurer;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 import org.springframework.web.servlet.config.annotation.ViewResolverRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;
@@ -18,6 +21,8 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter
 @Configuration
 @ComponentScan("shopadmin")
 @EnableWebMvc // 开启web mvc基础设施支持
+@MapperScan("shopadmin.mapper") // 扫描指定包下的mapper
+@PropertySource("classpath:jdbc.properties")
 public class AppConfig extends WebMvcConfigurerAdapter{
 	 @Override
 	 public void configureViewResolvers(ViewResolverRegistry registry) {
@@ -47,4 +52,9 @@ public class AppConfig extends WebMvcConfigurerAdapter{
 	        return new BCryptPasswordEncoder();
 	    }
 
+	    //寻找css样式的路径
+	    @Override
+	    public void configureDefaultServletHandling(DefaultServletHandlerConfigurer configurer) {
+	        configurer.enable();
+	    }
 }

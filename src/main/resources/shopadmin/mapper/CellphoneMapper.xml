@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  
+  
+<mapper namespace="shopadmin.mapper.CellphoneMapper" >
+	<select id="findOne" resultMap="cellphoneDetails">
+		select c.id cellphone_id,c.brand cellphone_brand,c.model cellphone_model,c.os cellphone_os,
+       c.cpubrand cellphone_cpubrand,c.ram cellphone_ram,c.storage cellphone_storage, 
+       c.color cellphone_color, c.price cellphone_price,c.description cellphone_description
+ 		from cellphone c where c.ID=#{id}
+	</select>
+	
+	<resultMap type="Cellphone" id="cellphoneDetails">
+		<id column="cellphone_id" property="id"/>
+		<result column="cellphone_brand" property="brand"/>
+		<result column="cellphone_model" property="model"/>
+		<result column="cellphone_os" property="os"/>
+		<result column="cellphone_cpubrand" property="cpubrand"/>
+		<result column="cellphone_ram" property="ram"/>
+		<result column="cellphone_storage" property="storage"/>
+		<result column="cellphone_color" property="color"/>
+		<result column="cellphone_price" property="price"/>
+		<result column="cellphone_description" property="description"/>
+		
+	</resultMap>
+	
+	<select id="findAll" resultMap="cellphoneDetails">
+		select c.id cellphone_id,c.brand cellphone_brand,c.model cellphone_model,c.os cellphone_os,
+       c.cpubrand cellphone_cpubrand,c.ram cellphone_ram,c.storage cellphone_storage, 
+       c.color cellphone_color, c.price cellphone_price,c.description cellphone_description
+ 		from cellphone c 
+	</select>
+
+
+	<insert id="create">
+		insert into cellphone(BRAND,MODEL,OS,CPUBRAND,RAM,storage,COLOR,PRICE,DESCRIPTION) 
+       values(#{brand},#{model},#{os},#{cpubrand},#{ram},#{storage},#{color},#{price},#{description})
+	</insert>
+	
+	<insert id="delete">
+		DELETE FROM cellphone c WHERE c.ID=#{id}
+	</insert>
+	
+	<update id="update">
+    update cellphone 
+    set BRAND = #{brand}, MODEL = #{model},OS = #{os},CPUBRAND = #{cpubrand},RAM = #{ram},
+    			storage = #{storage},COLOR = #{color},PRICE = #{price},DESCRIPTION = #{description}
+    where ID = #{id}
+  </update>
+</mapper>
