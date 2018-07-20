@@ -19,6 +19,7 @@
 	<div class="header">
 	<a href="${contextPath}/cellphone/cellphone-List">手机列表</a>
 	<a href="${contextPath}/cellphone/add">添加手机</a>
+	<a href="${contextPath}/shopusers/">用户列表</a>
 	</div>
 	
 	<div class="content">

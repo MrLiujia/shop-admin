@@ -28,7 +28,7 @@
 			<form:errors path="model" cssClass="field-error" />
 		</div>
 		<div>
-			<label for="os">操作</label> 
+			<label for="os">操作系统</label> 
 			<form:input type="text" path="os" id="os"/>
 			<form:errors path="os" cssClass="field-error" />
 		</div>
@@ -38,7 +38,7 @@
 			<form:errors path="cpubrand" cssClass="field-error" />
 		</div>
 		<div>
-			<label for="ram">内存</label> 
+			<label for="ram">运行内存</label> 
 			<form:input type="text" path="ram" id="ram"/>
 			<form:errors path="ram" cssClass="field-error" />
 		</div>
