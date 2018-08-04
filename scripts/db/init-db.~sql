@@ -76,4 +76,116 @@ begin
   end if;
 end TRI_cellphone_ID; 
 
-alter table shopuser add(last_time date default sysdate);   
+alter table shopuser add(last_time date default sysdate); 
+
+--购物车项
+select * from shopuser
+select * from cellphone_shopuser
+create table cellphone_shopuser(  
+       cellphone_id integer  not null ,
+       shopuser_id integer  not null, 
+       quantity integer,
+       constraint PK_cellphone_shopuser primary key (cellphone_id,shopuser_id)
+       );
+alter table cellphone_shopuser 
+add constraint FK_cellphone_user_shopuser_id
+  foreign key (shopuser_id) references shopuser (ID); 
+
+alter table cellphone_shopuser 
+add constraint FK_cellphone_user_cellphone_id
+  foreign key (cellphone_id) references cellphone (ID); 
+
+insert into receiving_address(shopuser_id,consignee_name,cellphone_number,detailed_address) 
+       values(#{shopuserId},#{consigneeName},#{cellphoneNumber},#{detailedAddress})
+--收货地址：id、用户id、收货人姓名、手机号、详细地址
+select * from receiving_address
+create table receiving_address(
+       ID integer not null primary key, 
+       shopuser_id integer not null,
+       consignee_name varchar2(32),
+       cellphone_number varchar2(64),
+       detailed_address varchar2(256)
+       )
+       
+create sequence SEQ_receiving_address
+minvalue 1
+maxvalue 999
+start with 1
+increment by 1
+nocache;
+
+create or replace trigger TRI_receiving_address_ID
+  before insert on receiving_address
+  for each row
+declare
+  nextid number;
+begin
+  IF :new.ID IS NULL or :new.ID=0 THEN
+    select SEQ_receiving_address.nextval
+    into nextid
+    from sys.dual;
+    :new.ID:=nextid;
+  end if;
+end TRI_receiving_address_ID; 
+
+
+alter table receiving_address 
+add constraint FK_receiving_add_shopuser_id
+  foreign key (shopuser_id) references shopuser (ID); 
+
+--订单
+select * from orders
+
+drop table orders;
+create table orders(
+       ID integer not null primary key, 
+       shopuser_id integer not null,
+       receiving_address_id integer not null,
+       last_time date default sysdate,
+       STATE varchar(64) not null
+       )
+       
+alter table orders
+add constraint FK_order_shopuser_id
+  foreign key (shopuser_id) references shopuser (ID); 
+
+alter table orders 
+add constraint FK_order_receiving_address_id
+  foreign key (receiving_address_id) references receiving_address (ID);
+  
+  
+create sequence SEQ_order
+minvalue 1
+maxvalue 999
+start with 1
+increment by 1
+nocache;
+
+create or replace trigger TRI_orders_ID
+  before insert on orders
+  for each row
+declare
+  nextid number;
+begin
+  IF :new.ID IS NULL or :new.ID=0 THEN
+    select SEQ_orders.nextval
+    into nextid
+    from sys.dual;
+    :new.ID:=nextid;
+  end if;
+end TRI_orders_ID; 
+
+create table order_item(
+       order_id integer not null,
+       cellphone_id integer not null,
+       quantity integer
+       )
+alter table order_item 
+add constraint FK_order_item_order_id
+  foreign key (order_id) references orders (ID); 
+  
+alter table order_item 
+add constraint FK_order_item_cellphone_id
+  foreign key (cellphone_id) references cellphone (ID);
+
+

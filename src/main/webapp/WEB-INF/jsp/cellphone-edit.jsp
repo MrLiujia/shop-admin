@@ -18,33 +18,49 @@
 	<form:form action="" method="post" commandName="cellphone">
 	    <sec:csrfInput />
 		<div>
-			<label for="brand">品牌</label> 
-			<form:input type="text" path="brand" id="brand"/>
+			<label for="brand">品牌</label>
+			<form:select path="brand">
+			   <form:option value="">--请选择品牌--</form:option>
+			   <form:option value="苹果">苹果</form:option>
+			   <form:option value="锤子">锤子</form:option>
+			   <form:option value="华为">华为</form:option>
+			   <form:option value="OPPO">华为</form:option>
+			   <form:option value="VIVO">华为</form:option>
+			</form:select>
 			<form:errors path="brand" cssClass="field-error" />
 		</div>
 		<div>
 			<label for="model">型号</label> 
-			<form:input type="text" path="model" id="model"/>
+			<form:input type="text" path="model" id="model" />
 			<form:errors path="model" cssClass="field-error" />
 		</div>
 		<div>
 			<label for="os">操作系统</label> 
-			<form:input type="text" path="os" id="os"/>
+			<form:select path="os">
+       			 <form:option value="">--请选择操作系统--</form:option>
+       			 <form:option value="Android">Android</form:option>
+        		 <form:option value="IOS">IOS</form:option>
+       			 <form:option value="Windows Phone">Windows Phone</form:option>
+      		</form:select>   
 			<form:errors path="os" cssClass="field-error" />
 		</div>
 		<div>
 			<label for="cpubrand">CPU</label> 
-			<form:input type="text" path="cpubrand" id="cpubrand"/>
+			<form:select path="cpubrand">
+        		<form:option value="">--请选择CPU品牌--</form:option>
+        		<form:option value="高通">高通</form:option>
+        		<form:option value="联发科">联发科</form:option>
+      		</form:select>
 			<form:errors path="cpubrand" cssClass="field-error" />
 		</div>
 		<div>
 			<label for="ram">运行内存</label> 
-			<form:input type="text" path="ram" id="ram"/>
+			<form:input path="ram" type="number" min="1" max="16" placeholder="GB" />
 			<form:errors path="ram" cssClass="field-error" />
 		</div>
 		<div>
 			<label for="storage">储存容量</label> 
-			<form:input type="text" path="storage" id="storage"/>
+			<form:input path="storage" type="number" min="16" max="256" placeholder="GB" />
 			<form:errors path="storage" cssClass="field-error" />
 		</div>
 		<div>

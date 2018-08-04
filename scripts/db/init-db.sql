@@ -76,4 +76,28 @@ begin
   end if;
 end TRI_cellphone_ID; 
 
-alter table shopuser add(last_time date default sysdate);   
+alter table shopuser add(last_time date default sysdate); 
+
+//¹ºÎï³µÏî
+select * from shopuser
+select * from cellphone_shopuser
+create table cellphone_shopuser(  
+       cellphone_id integer  not null ,
+       shopuser_id integer  not null, 
+       quantity integer,
+       constraint PK_cellphone_shopuser primary key (cellphone_id,shopuser_id)
+       );
+alter table cellphone_shopuser 
+add constraint FK_cellphone_user_shopuser_id
+  foreign key (shopuser_id) references shopuser (ID); 
+
+alter table cellphone_shopuser 
+add constraint FK_cellphone_user_cellphone_id
+  foreign key (cellphone_id) references cellphone (ID); 
+
+  
+insert into cellphone_shopuser(cellphone_id,shopuser_id,quantity) 
+       values(7,8,1);
+
+DELETE FROM cellphone_shopuser c 
+		WHERE c.cellphone_id=1 and c.shopuser_id=8

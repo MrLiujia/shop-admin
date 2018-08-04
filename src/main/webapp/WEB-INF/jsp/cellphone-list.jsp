@@ -7,7 +7,7 @@
 
 	<ul>
 		<c:forEach items="${cellphones}" var="cellphone">
-			<li>#${cellphone.id} </li>
+			
 			<li><a href="${contextPath}/cellphone/cellphone-details/${cellphone.id}">${cellphone.brand}</a></li>
 		</c:forEach>
 	</ul>
